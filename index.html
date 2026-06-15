@@ -188,8 +188,6 @@
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
-      filter: blur(3px);
-      transform: scale(1.004);
       pointer-events: none;
       user-select: none;
     }
@@ -197,9 +195,16 @@
     .workspace::after {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: 78px 0 0 0;
       background: rgba(245,245,247,0.46);
       backdrop-filter: blur(1px);
+      pointer-events: none;
+    }
+
+    .workspace > :not(.topbar) {
+      filter: blur(3px);
+      transform: scale(1.004);
+      transform-origin: center top;
     }
 
     .topbar {
@@ -210,6 +215,9 @@
       gap: 18px;
       padding: 12px 0;
       background: #fff;
+      position: relative;
+      z-index: 3;
+      pointer-events: auto;
     }
 
     .breadcrumb { display: flex; align-items: center; gap: 8px; color: var(--grey-500); font-size: 18px; }
@@ -262,7 +270,7 @@
 
     .lock-layer {
       position: absolute;
-      inset: 0;
+      inset: 78px 0 0 0;
       display: grid;
       place-items: center;
       padding: 36px;
@@ -502,6 +510,7 @@
       .reassurance-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .lock-card { padding: 26px; }
       .lock-card h2 { font-size: 26px; }
+      .logout-avatar-link { top: 28px; right: 32px; }
     }
   </style>
 </head>
@@ -557,7 +566,6 @@
             <tr><td><span class="check"></span></td><td><div class="track-cell"><span class="track-index">3</span><div class="cover"><img src="https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?q=80&w=120&auto=format&fit=crop" alt=""></div><div><div class="track-title">Poto</div><div class="track-sub">De2s&nbsp;&nbsp; Ysos</div></div></div></td><td>Poto</td><td>2:40</td><td><div>13 mai 2026</div><div class="update-sub">Clement Souchier</div></td></tr>
           </tbody></table>
         </section>
-
         <div class="lock-layer">
           <section class="lock-card lock-card--lean" role="dialog" aria-labelledby="locked-title" aria-describedby="locked-description">
             <div class="lock-content">
@@ -566,9 +574,9 @@
               <h2 id="locked-title">Your workspace is safely locked</h2>
 
               <p class="lock-copy" id="locked-description">
-                Your payment couldn’t be completed.<br>
-                All files, projects and metadata are securely preserved.<br>
-                Shared links will remain active for 30 days.
+                All files, projects, and metadata are securely preserved.<br>
+                Shared links will remain active for 30 days.<br>
+                This may be due to a failed payment or an expired free trial.
               </p>
 
               <div class="cta-row cta-row--lean">
