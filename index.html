@@ -192,19 +192,22 @@
       user-select: none;
     }
 
+    .workspace::before {
+      content: none;
+    }
+
     .workspace::after {
       content: "";
       position: absolute;
-      inset: 78px 0 0 0;
-      background: rgba(245,245,247,0.46);
-      backdrop-filter: blur(1px);
+      inset: 0;
+      z-index: 2;
+      background: rgba(255,255,255,0.58);
       pointer-events: none;
     }
 
     .workspace > :not(.topbar) {
-      filter: blur(3px);
-      transform: scale(1.004);
-      transform-origin: center top;
+      opacity: 0.28;
+      pointer-events: none;
     }
 
     .topbar {
@@ -216,8 +219,7 @@
       padding: 12px 0;
       background: #fff;
       position: relative;
-      z-index: 3;
-      pointer-events: auto;
+      pointer-events: none;
     }
 
     .breadcrumb { display: flex; align-items: center; gap: 8px; color: var(--grey-500); font-size: 18px; }
@@ -244,7 +246,18 @@
     .btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
     .top-icons { display: flex; align-items: center; gap: 21px; color: #BDBDC4; margin-left: 12px; }
     .top-icons svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #1d1d20, #999); overflow: hidden; margin-left: 4px; }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1d1d20, #999);
+      overflow: hidden;
+      margin-left: 4px;
+      position: relative;
+      z-index: 4;
+      pointer-events: auto;
+      cursor: pointer;
+    }
     .avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .hero { height: 255px; border-radius: 15px; overflow: hidden; background: #08090a; }
@@ -270,24 +283,28 @@
 
     .lock-layer {
       position: absolute;
-      inset: 78px 0 0 0;
+      inset: 0;
       display: grid;
       place-items: center;
       padding: 36px;
       z-index: 20;
-      background: rgba(245,245,247,0.72);
+      background: transparent;
+      pointer-events: none;
     }
 
     .lock-card {
       width: min(760px, 100%);
       border-radius: 30px;
-      border: 1px solid var(--grey-200);
-      background: #fff;
-      box-shadow: none;
+      border: 1px solid rgba(52,68,212,.10);
+      background: #ffffff;
+      box-shadow:
+        0 16px 40px rgba(0,0,0,.08),
+        0 4px 12px rgba(0,0,0,.04);
       padding: 34px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      pointer-events: auto;
     }
 
     .lock-card::before {
@@ -442,14 +459,26 @@
       font-size: 12.5px;
     }
 
+    .support-note a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .support-note a:hover {
+      text-decoration: underline;
+    }
+
 
     /* Lean paused-workspace modal */
     .lock-card--lean {
       width: min(560px, 100%);
       border-radius: 26px;
       border: 1px solid rgba(52, 68, 212, 0.10);
-      background: #fff;
-      box-shadow: none;
+      background: #FFFFFF;
+      box-shadow:
+        0 16px 40px rgba(0,0,0,.08),
+        0 4px 12px rgba(0,0,0,.04);
       padding: 32px 34px;
       text-align: center;
     }
@@ -510,7 +539,6 @@
       .reassurance-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .lock-card { padding: 26px; }
       .lock-card h2 { font-size: 26px; }
-      .logout-avatar-link { top: 28px; right: 32px; }
     }
   </style>
 </head>
@@ -571,21 +599,31 @@
             <div class="lock-content">
               <div class="status-pill"><svg class="status-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12C2.25 6.61522 6.61522 2.25 12 2.25C17.3848 2.25 21.75 6.61522 21.75 12C21.75 17.3848 17.3848 21.75 12 21.75C6.61522 21.75 2.25 17.3848 2.25 12ZM9 8.25C8.58579 8.25 8.25 8.58579 8.25 9V15C8.25 15.4142 8.58579 15.75 9 15.75H9.75C10.1642 15.75 10.5 15.4142 10.5 15V9C10.5 8.58579 10.1642 8.25 9.75 8.25H9ZM14.25 8.25C13.8358 8.25 13.5 8.58579 13.5 9V15C13.5 15.4142 13.8358 15.75 14.25 15.75H15C15.4142 15.75 15.75 15.4142 15.75 15V9C15.75 8.58579 15.4142 8.25 15 8.25H14.25Z" /></svg>Workspace paused</div>
 
-              <h2 id="locked-title">Your workspace is safely locked</h2>
 
-              <p class="lock-copy" id="locked-description">
-                All files, projects, and metadata are securely preserved.<br>
-                Shared links will remain active for 30 days.<br>
-                This may be due to a failed payment or an expired free trial.
-              </p>
 
-              <div class="cta-row cta-row--lean">
-                <a class="primary-cta" href="#">Update billing</a>
-                <a class="text-cta" href="https://clementsouchier-stack.github.io/pricing-checkout/" target="_blank" rel="noopener noreferrer">View plans</a>
-              </div>
+<h2 id="locked-title">Your workspace is safely locked</h2>
 
-              <div class="support-note">Need help? Contact support.</div>
-            </div>
+<p class="lock-copy" id="locked-description">
+  All files, projects, and metadata are securely preserved.<br>
+  Shared links will remain active for 30 days.
+</p>
+
+<p class="lock-copy lock-copy-secondary">
+  <strong>Access to this workspace is currently restricted.</strong><br>
+  Please update your billing details or choose a plan to continue.
+</p>
+
+<div class="cta-row cta-row--lean">
+  <a class="primary-cta" href="#">Update billing</a>
+  <a class="text-cta" href="https://clementsouchier-stack.github.io/pricing-checkout/" target="_blank" rel="noopener noreferrer">
+    View plans
+  </a>
+</div>
+
+<div class="support-note">
+  Need help?
+  <a href="mailto:hi@bridge.audio">Contact support</a>
+</div>
           </section>
 </div>
       </div>
