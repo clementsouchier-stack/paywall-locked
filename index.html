@@ -14,7 +14,7 @@
       --grey-100: #F5F5F7;
       --grey-200: #ECECF0;
       --grey-500: #8A8A93;
-      --shadow-soft: 0 18px 50px rgba(37, 36, 40, 0.07);
+      --shadow-soft: none;
     }
 
     * { box-sizing: border-box; }
@@ -77,7 +77,7 @@
       border-radius: 999px;
       background: #fff;
       border: 1px solid #CFCFD6;
-      box-shadow: 0 8px 20px rgba(37, 36, 40, 0.14);
+      box-shadow: none;
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -158,7 +158,7 @@
       color: #fff;
       font-size: 13px;
       font-weight: 700;
-      box-shadow: 0 8px 18px rgba(52, 68, 212, 0.24);
+      box-shadow: none;
     }
 
     .pro-mini > svg { width: 16px; height: 16px; }
@@ -267,17 +267,15 @@
       place-items: center;
       padding: 36px;
       z-index: 20;
-      background:
-        radial-gradient(circle at 50% 34%, rgba(255,255,255,0.75), rgba(245,245,247,0.38) 46%, rgba(245,245,247,0.18) 100%);
+      background: rgba(245,245,247,0.72);
     }
 
     .lock-card {
       width: min(760px, 100%);
       border-radius: 30px;
-      border: 1px solid rgba(52, 68, 212, 0.16);
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(22px);
-      box-shadow: 0 28px 80px rgba(37,36,40,0.16);
+      border: 1px solid var(--grey-200);
+      background: #fff;
+      box-shadow: none;
       padding: 34px;
       text-align: center;
       position: relative;
@@ -288,8 +286,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(52,68,212,0.08), transparent 38%, rgba(89,217,148,0.08));
-      pointer-events: none;
+      display: none;
     }
 
     .lock-content { position: relative; z-index: 1; }
@@ -302,18 +299,18 @@
       display: grid;
       place-items: center;
       margin: 0 auto 18px;
-      box-shadow: 0 18px 34px rgba(52,68,212,0.26), inset 0 1px 0 rgba(255,255,255,0.25);
+      box-shadow: none;
     }
 
     .lock-emblem svg { width: 30px; height: 30px; }
 
     .status-pill {
       height: 28px;
-      padding: 0 12px;
+      padding: 0 12px 0 10px;
       border-radius: 999px;
-      background: #FFF7E2;
-      border: 1px solid #F3D68A;
-      color: #9B6B00;
+      background: rgba(52,68,212,0.08);
+      border: 1px solid rgba(52,68,212,0.14);
+      color: var(--blue);
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -322,12 +319,15 @@
       margin-bottom: 12px;
     }
 
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #FFC94A;
-      box-shadow: 0 0 0 4px rgba(255,201,74,0.18);
+    .status-icon {
+      width: 15px;
+      height: 15px;
+      flex: none;
+      color: currentColor;
+    }
+
+    .status-icon path {
+      fill: currentColor;
     }
 
     .lock-card h2 {
@@ -363,7 +363,7 @@
       align-items: center;
       justify-content: center;
       gap: 9px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 8px 22px rgba(52,68,212,0.05);
+      box-shadow: none;
     }
 
     .chip-icon {
@@ -411,7 +411,7 @@
       background: var(--blue);
       color: #fff;
       gap: 8px;
-      box-shadow: 0 12px 24px rgba(52,68,212,0.24);
+      box-shadow: none;
     }
 
     .primary-cta svg { width: 16px; height: 16px; }
@@ -439,15 +439,15 @@
     .lock-card--lean {
       width: min(560px, 100%);
       border-radius: 26px;
-      border: 1px solid rgba(37, 36, 40, 0.08);
-      background: rgba(255,255,255,0.94);
-      box-shadow: 0 24px 70px rgba(37,36,40,0.14);
+      border: 1px solid rgba(52, 68, 212, 0.10);
+      background: #fff;
+      box-shadow: none;
       padding: 32px 34px;
       text-align: center;
     }
 
     .lock-card--lean::before {
-      background: linear-gradient(135deg, rgba(255,201,74,0.12), transparent 42%, rgba(52,68,212,0.05));
+      display: none;
     }
 
     .lock-card--lean .status-pill {
@@ -561,13 +561,14 @@
         <div class="lock-layer">
           <section class="lock-card lock-card--lean" role="dialog" aria-labelledby="locked-title" aria-describedby="locked-description">
             <div class="lock-content">
-              <div class="status-pill"><span class="status-dot"></span>Workspace paused</div>
+              <div class="status-pill"><svg class="status-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12C2.25 6.61522 6.61522 2.25 12 2.25C17.3848 2.25 21.75 6.61522 21.75 12C21.75 17.3848 17.3848 21.75 12 21.75C6.61522 21.75 2.25 17.3848 2.25 12ZM9 8.25C8.58579 8.25 8.25 8.58579 8.25 9V15C8.25 15.4142 8.58579 15.75 9 15.75H9.75C10.1642 15.75 10.5 15.4142 10.5 15V9C10.5 8.58579 10.1642 8.25 9.75 8.25H9ZM14.25 8.25C13.8358 8.25 13.5 8.58579 13.5 9V15C13.5 15.4142 13.8358 15.75 14.25 15.75H15C15.4142 15.75 15.75 15.4142 15.75 15V9C15.75 8.58579 15.4142 8.25 15 8.25H14.25Z" /></svg>Workspace paused</div>
 
-              <h2 id="locked-title">Your workspace is paused</h2>
+              <h2 id="locked-title">Your workspace is safely locked</h2>
 
               <p class="lock-copy" id="locked-description">
-                Your payment couldn’t be completed. Your files, projects and metadata are safe.
-                Shared pages remain available for 30 days.
+                Your payment couldn’t be completed.<br>
+                All files, projects and metadata are securely preserved.<br>
+                Shared links will remain active for 30 days.
               </p>
 
               <div class="cta-row cta-row--lean">
